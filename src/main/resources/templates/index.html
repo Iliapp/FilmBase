@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<h1>Film Database</h1>
+<form action="/add_film" method="post">
+    <label>Film Name:</label>
+    <input type="text" name="name" required>
+    <label>URL:</label>
+    <input type="text" name="url" required>
+    <select name="type" required>
+        <option value="FILM">Film</option>
+        <option value="ANIME">Anime</option>
+        <option value="SERIAL">Serial</option>
+    </select>
+    <button type="submit">Add Film</button>
+</form>
+
+<h2>Films</h2>
+<ul>
+    <th:block th:each="film : ${films}">
+        <li>
+            <strong th:text="${film.filmName}"></strong> -
+            <a th:href="${film.url}" th:text="${film.url}" target="_blank"></a>
+        </li>
+    </th:block>
+</ul>
+
+<h2>Anime</h2>
+<ul>
+    <th:block th:each="anime : ${anime}">
+        <li>
+            <strong th:text="${anime.filmName}"></strong> -
+            <a th:href="${anime.url}" th:text="${anime.url}" target="_blank"></a>
+        </li>
+    </th:block>
+</ul>
+
+<h2>Serials</h2>
+<ul>
+    <th:block th:each="serial : ${serials}">
+        <li>
+            <strong th:text="${serial.filmName}"></strong> -
+            <a th:href="${serial.url}" th:text="${serial.url}" target="_blank"></a>
+        </li>
+    </th:block>
+</ul>
+
+</body>
+</html>
