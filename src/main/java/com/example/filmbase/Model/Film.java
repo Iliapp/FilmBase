@@ -15,6 +15,16 @@ public class Film {
         this.filmName = filmName;
         this.url = url;
         this.type = type;
+        this.icon = getIcon(url);
+    }
+
+    private String getIcon(String url) {
+        try {
+            java.net.URL parsedUrl = new java.net.URL(url);
+            return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + "/favicon.ico";
+        } catch (Exception e) {
+            return "/favicon.ico";
+        }
     }
 
     public int getId() {
@@ -31,5 +41,9 @@ public class Film {
 
     public String getType() {
         return type;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

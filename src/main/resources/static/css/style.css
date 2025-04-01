@@ -287,3 +287,8 @@ a:hover {
 
 }
 
+.film-container img{
+    height: 2ex;
+    width: 2ex;
+}
+
