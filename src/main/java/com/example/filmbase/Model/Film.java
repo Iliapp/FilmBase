@@ -1,5 +1,7 @@
 package com.example.filmbase.Model;
 
+import java.net.URL;
+
 public class Film {
     private int id;
     private String icon;
@@ -20,8 +22,21 @@ public class Film {
 
     private String getIcon(String url) {
         try {
-            java.net.URL parsedUrl = new java.net.URL(url);
-            return parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + "/favicon.ico";
+            URL parsedUrl = new URL(url);
+
+            String result = "";
+
+            if(parsedUrl.equals("jut.su")){
+
+            } else if(parsedUrl.equals("uakino.me")){
+
+            } else {
+                result = parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + "/favicon.ico";
+            }
+
+
+
+            return result;
         } catch (Exception e) {
             return "/favicon.ico";
         }
