@@ -49,4 +49,10 @@ public class GlobalController {
         dbManager.addFilm(name, url, type);
         return "redirect:/";
     }
+
+    @GetMapping("/remove")
+    public String removeFilm(@RequestParam int id) {
+        dbManager.deleteFilm(id);
+        return "redirect:/";
+    }
 }

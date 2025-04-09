@@ -287,8 +287,15 @@ a:hover {
 
 }
 
+/* NEED FIX SIZE*/
 .film-container img{
     height: 2ex;
     width: 2ex;
 }
 
+
+.removeBtn{
+    background: red;
+    color: white;
+    padding: 1ex;
+}

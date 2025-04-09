@@ -63,6 +63,7 @@
             <img th:src="${film.icon}"/>
             <strong th:text="${film.filmName}"></strong> -
             <a th:href="${film.url}" th:text="${film.url}" target="_blank"></a>
+            <a th:href="@{'/remove?id=' + ${film.id}}" class="removeBtn">Remove</a>
         </li>
     </th:block>
 </ul>
@@ -74,6 +75,7 @@
             <img th:src="${anime.icon}"/>
             <strong th:text="${anime.filmName}"></strong> -
             <a th:href="${anime.url}" th:text="${anime.url}" target="_blank"></a>
+            <a th:href="@{'/remove?id=' + ${anime.id}}" class="removeBtn">Remove</a>
         </li>
     </th:block>
 </ul>
@@ -85,6 +87,7 @@
             <img th:src="${serial.icon}"/>
             <strong th:text="${serial.filmName}"></strong> -
             <a th:href="${serial.url}" th:text="${serial.url}" target="_blank"></a>
+            <a th:href="@{'/remove?id=' + ${serial.id}}" class="removeBtn">Remove</a>
         </li>
     </th:block>
 </ul>
