@@ -2,13 +2,22 @@ package com.example.filmbase.Manager;
 
 
 import com.example.filmbase.Model.Film;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataBaseManager {
     private String dataBaseStructure =
@@ -16,6 +25,7 @@ public class DataBaseManager {
                     "   id INTEGER PRIMARY KEY, " +
                     "   name TEXT, " +
                     "   url TEXT NOT NULL, " +
+                    "   icon TEXT, " +
                     "   type TEXT NOT NULL" +
                     ");";
 
@@ -54,16 +64,15 @@ public class DataBaseManager {
 
 
     public void addFilm(String name, String url, String type) {
-        System.out.println("Adding film: " + name + " " + url + " " + type);
-        String query = "INSERT INTO films (name, url, type) VALUES (?, ?, ?)";
+        String query = "INSERT INTO films (name, url, type, icon) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, url);
             preparedStatement.setString(3, type);
+            preparedStatement.setString(4, getIcon(url));
             preparedStatement.executeUpdate();
-            System.out.println("Added " + type + ": " + name);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,10 +105,10 @@ public class DataBaseManager {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
+                String icon = resultSet.getString("icon");
                 String url = resultSet.getString("url");
                 String type = resultSet.getString("type");
-                System.out.println("GET " + id + " " + name + " " + url + " " + type);
-                films.add(new Film(id, name, url, type));
+                films.add(new Film(id, name, url, type, icon));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,5 +116,77 @@ public class DataBaseManager {
         return films;
     }
 
+
+
+
+
+    private String getIcon(String url) {
+        try {
+            URL parsedUrl = new URL(url);
+            String result = "";
+
+
+            if(parsedUrl.getHost().equals("jut.su")){
+                HttpURLConnection con = (HttpURLConnection) parsedUrl.openConnection();
+                con.setRequestMethod("GET");
+
+
+                InputStream response = con.getInputStream();
+
+                String responseBody;
+                try (Scanner scanner = new Scanner(response)) {
+                    responseBody = scanner.useDelimiter("\\A").next();
+                }
+
+                Document doc = Jsoup.parse(responseBody);
+
+                Element div = doc.selectFirst("div.all_anime_title");
+
+                if (div != null) {
+                    String style = div.attr("style");
+
+                    Pattern pattern = Pattern.compile("url\\(['\"]?(.*?)['\"]?\\)");
+                    Matcher matcher = pattern.matcher(style);
+
+                    if (matcher.find()) {
+                        result = matcher.group(1);
+                    }
+                }
+
+                con.disconnect();
+
+
+            } else if(parsedUrl.getHost().equals("uakino.me")){;
+                HttpURLConnection con = (HttpURLConnection) parsedUrl.openConnection();
+                con.setRequestMethod("GET");
+
+                InputStream response = con.getInputStream();
+
+                String responseBody;
+                try (Scanner scanner = new Scanner(response)) {
+                    responseBody = scanner.useDelimiter("\\A").next();
+                }
+
+                Document doc = Jsoup.parse(responseBody);
+                Element imgElement = doc.selectFirst("div.film-poster img");
+
+                if (imgElement != null) {
+                    String src = imgElement.attr("src");
+                    System.out.println("Image URL: " + src);
+
+                    result = parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + src;
+                }
+
+
+                con.disconnect();
+            } else {
+                result = parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + "/favicon.ico";
+            }
+
+            return result;
+        } catch (Exception e) {
+            return "/favicon.ico";
+        }
+    }
 
 }

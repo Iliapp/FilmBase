@@ -21,86 +21,14 @@ public class Film {
     private String url;
     private String type;
 
-    // Default constructor
     public Film() {}
 
-    public Film(int id, String filmName, String url, String type) {
+    public Film(int id, String filmName, String url, String type, String icon) {
         this.id = id;
         this.filmName = filmName;
         this.url = url;
         this.type = type;
-        this.icon = getIcon(url);
-    }
-
-    private String getIcon(String url) {
-        try {
-            URL parsedUrl = new URL(url);
-            String result = "";
-
-
-            if(parsedUrl.getHost().equals("jut.su")){
-                HttpURLConnection con = (HttpURLConnection) parsedUrl.openConnection();
-                con.setRequestMethod("GET");
-
-
-                InputStream response = con.getInputStream();
-
-                String responseBody;
-                try (Scanner scanner = new Scanner(response)) {
-                    responseBody = scanner.useDelimiter("\\A").next();
-                }
-
-                Document doc = Jsoup.parse(responseBody);
-
-                Element div = doc.selectFirst("div.all_anime_title");
-
-                if (div != null) {
-                    String style = div.attr("style");
-
-                    Pattern pattern = Pattern.compile("url\\(['\"]?(.*?)['\"]?\\)");
-                    Matcher matcher = pattern.matcher(style);
-
-                    if (matcher.find()) {
-                        result = matcher.group(1);
-                    }
-                }
-
-                con.disconnect();
-
-
-                System.out.println("JUT");
-            } else if(parsedUrl.getHost().equals("uakino.me")){;
-                HttpURLConnection con = (HttpURLConnection) parsedUrl.openConnection();
-                con.setRequestMethod("GET");
-
-                InputStream response = con.getInputStream();
-
-                String responseBody;
-                try (Scanner scanner = new Scanner(response)) {
-                    responseBody = scanner.useDelimiter("\\A").next();
-                }
-
-                Document doc = Jsoup.parse(responseBody);
-                Element imgElement = doc.selectFirst("div.film-poster img");
-
-                if (imgElement != null) {
-                    String src = imgElement.attr("src");
-                    System.out.println("Image URL: " + src);
-
-                    result = parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + src;
-                }
-
-
-                con.disconnect();
-            } else {
-                System.out.println("EXIT");
-                result = parsedUrl.getProtocol() + "://" + parsedUrl.getHost() + "/favicon.ico";
-            }
-
-            return result;
-        } catch (Exception e) {
-            return "/favicon.ico";
-        }
+        this.icon = icon;
     }
 
     public int getId() {
