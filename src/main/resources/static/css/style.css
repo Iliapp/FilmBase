@@ -12,14 +12,15 @@ body {
 }
 
 h1 {
+    margin-top: 150px;
     text-align: center;
-    color: #333;
+    color: white;
     margin-bottom: 20px;
 }
 
 h2 {
     margin-top: 20px;
-    color: #444;
+    color: white;
 }
 
 form {
@@ -148,156 +149,101 @@ a:hover {
 
 
 /* 2 nav */
-.nav {
-    flex: 1;
-    position: relative;
-    width: 400px;
-    height: 60px;
-}
 
 
-.container {
-    position: absolute;
-    inset: 0;
-    background: lightgray; /* Змінити на ваш вибір кольору */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.5em;
-}
-
-/* Стилі для кнопок навігації */
 .btn {
-    padding: 0.5em 1.5em;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.1s;
-}
 
-/* Стиль для наведеного елемента кнопки */
-.btn:hover {
-    background: #fff3;
-}
 
-/* Анімація для обводки */
-/* Обводка для SVG */
-.outline {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
 
-.rect {
-    stroke-dashoffset: 5;
-    stroke-dasharray: 0 0 10 40 10 40;
-    transition: 0.5s;
-    stroke: #fff;
+
+
 }
 
 .nav {
     position: fixed;
-    flex: 1;
-    width: 400px;
-    height: 60px;
+    right: 0px;
+    width: 100vw;
+    height: 13ex;
+    top: 0;
 }
 
-/* Стилі для контейнера кнопок */
 .container {
+
     position: absolute;
     inset: 0;
-    background: lightgray;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 0.5em;
+    background-color: rgba(128, 128, 128, 0.51);
+    padding: 0 20px;
+}
+/* Домік лівий бік*/
+.container div:first-child {
+    margin-right: auto;
 }
 
-/* Стилі для кнопок навігації */
-.btn {
-    padding: 0.5em 1.5em;
+/* Серіали/Аніме - правий блок */
+.container div:last-child {
+    margin-left: auto;
+
+}
+
+
+.container div a{
+    text-decoration: none;
     color: #fff;
-    cursor: pointer;
-    position: relative;
-    transition: 0.1s;
+    margin-right: 7ex;
+    padding: 0.1ex;
+    font-size: 1.2rem;
+    font-family: fantasy;
+    font-size: 24px;
+
 }
 
-/* Стиль для наведеного елемента кнопки */
-.btn:hover {
-    background: #fff3;
-}
 
-/* Стилі для обводки SVG */
-.outline {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-/* Стилі для обводки */
-.rect {
-    stroke-dashoffset: 5;
-    stroke-dasharray: 0 0 10 40 10 40;
-    transition: 0.5s;
-    stroke: #fff;
-}
-
-/* Анімація для 1-ї кнопки (Anime) */
-.btn:nth-child(1):hover ~ svg .rect {
-    stroke-dashoffset: 0;
-    stroke-dasharray: 0 2 8 73.3 8 10.7;
-}
-
-/* Анімація для 2-ї кнопки (Films) */
-.btn:nth-child(2):hover ~ svg .rect {
-    stroke-dashoffset: 0;
-    stroke-dasharray: 0 12.6 9.5 49.3 9.5 31.6;
-}
-
-/* Анімація для 3-ї кнопки (Serials) */
-.btn:nth-child(3):hover ~ svg .rect {
-    stroke-dashoffset: 0;
-    stroke-dasharray: 0 24.5 8.5 27.5 8.5 55.5;
-}
-
-/* Анімація для 4-ї кнопки (Home) FIX TUTAJ  */
-.btn:nth-child(4):hover ~ svg .rect {
-    stroke-dashoffset: 0;
-    stroke-dasharray: 0 12 10 50 10 30; /* Це значення аналогічне анімації для кнопки Films */
-}
-
-/* Загальний ефект для обводки при наведенні на будь-яку кнопку */
-.btn:hover ~ .outline .rect {
-    stroke-dashoffset: 0;
-    stroke-dasharray: 0 0 10 40 10 40;
-    transition: 0.5s !important;
-}
-
-/* Ефект при наведенні на весь контейнер */
-.container:hover .outline .rect {
-    transition: 999999s;
-    stroke-dashoffset: 1;
-    stroke-dasharray: 0;
-}
 
 
 .film-container{
-    text-align: center;
+    width: 70ex;
+    display: flex;
+    border-radius: 2ex;
+    background-color: rgba(104, 103, 103, 0.95);
+    padding: 3ex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2ex;
+    margin-bottom: 2ex;
+    justify-content: space-between;
+    position: relative;
+
 
 }
 
 /* NEED FIX SIZE*/
 .film-container img{
-    height: 2ex;
-    width: 2ex;
+    max-height: 20.8ex;
+    max-width: 35.6ex;
+    height: auto;
+    width: auto;
+    border-radius: 0.3ex;
+    object-fit: contain;
+    display: block;
+
+
 }
 
 
 .removeBtn{
-    background: red;
+    position: absolute;
+    top: 1ex;
+    right: 2ex;
+    background-color: #e53935;
     color: white;
-    padding: 1ex;
+    padding: 0.8ex 1.5ex;
+    border-radius: 0.5ex;
+    cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .video-background {
@@ -309,3 +255,105 @@ a:hover {
     transform: translate(-50%, -50%) scale(1);
     z-index: -1;
 }
+
+
+.formoczka {
+    margin-top: 2.5ex;
+}
+
+
+
+
+.all_elements {
+    flex-grow: 1;
+    padding-right: 6ex;
+
+}
+
+.Name {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+
+}
+
+.Link {
+    font-size: 0.90rem;
+    word-break: break-word;
+    text-align: center;
+}
+
+.name-link {
+    display: flex;
+    flex-direction: column;
+    gap: 3ex;
+}
+
+.search {
+    --pading: 14px;
+
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: var(--pading);
+    border-radius: 28px;
+    background: #efefef;
+    transition: box-shadow 0.25s;
+    margin-left: 33ex;
+
+
+
+
+}
+
+.search:focus-within {
+    box-shadow: 0 0 2px rgba(0,0,0,0.75);
+}
+
+.search-input {
+    font-size: 16px;
+    font-family: 'Lexend', sans-serif;
+    color: #333333;
+    margin-left: var(--pading);
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 375px;
+}
+
+.search-input::placeholder,
+.search-icon {
+
+    color: rgba(0,0,0, 0.25);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
