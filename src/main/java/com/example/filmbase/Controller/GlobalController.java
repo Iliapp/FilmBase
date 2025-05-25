@@ -55,4 +55,22 @@ public class GlobalController {
         dbManager.deleteFilm(id);
         return "redirect:/";
     }
+
+    @GetMapping("/search")
+    public String search(@RequestParam String query, Model model) {
+        List<Film> allFilms = dbManager.getAllFilmInfo();
+        List<Film> searchResults = new ArrayList<>();
+
+        for (Film film : allFilms) {
+            if (film.getFilmName().toLowerCase().contains(query.toLowerCase())) {
+                searchResults.add(film);
+            }
+        }
+
+        model.addAttribute("films", searchResults);
+        model.addAttribute("anime", new ArrayList<>());
+        model.addAttribute("serials", new ArrayList<>());
+
+        return "index";
+    }
 }
