@@ -20,15 +20,19 @@ public class Film {
     private String filmName;
     private String url;
     private String type;
+    private int episode;
+    private String time;
 
     public Film() {}
 
-    public Film(int id, String filmName, String url, String type, String icon) {
+    public Film(int id, String filmName, String url, String type, String icon,  int episode, String time) {
         this.id = id;
         this.filmName = filmName;
         this.url = url;
         this.type = type;
         this.icon = icon;
+        this.episode = episode;
+        this.time = time;
     }
 
     public int getId() {
@@ -50,4 +54,12 @@ public class Film {
     public String getIcon() {
         return icon;
     }
+
+    public int getEpisode() {return episode; }
+
+    public void setEpisode(int episode) { this.episode = episode; }
+
+    public String getTime() {return time;}
+
+    public void setTime(String time) { this.time = time; }
 }

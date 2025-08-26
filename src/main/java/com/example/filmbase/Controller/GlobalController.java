@@ -73,4 +73,14 @@ public class GlobalController {
 
         return "index";
     }
+
+
+    @PostMapping("/update_progress")
+    public String updateProgress(@RequestParam int id,
+                                 @RequestParam int episode,
+                                 @RequestParam String time) {
+            dbManager.updateProgress(id, episode, time);
+        return "redirect:/";
+    }
+
 }
